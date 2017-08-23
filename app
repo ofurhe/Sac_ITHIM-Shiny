@@ -6,7 +6,7 @@ V1 <- c(.2,9.1,-.7,.72,.2,9.1,-.7,.72,.2,9.1,-.7,.72,.2,9.1,-.7,.72,.2,9.1,-.7,.
 df.death.race.2020Demo <- data.frame(countyNames, DemogrGroup, V1)
 
 #set your working directory
-setwd("C:/Users/Ofurhe/Desktop/ITHIM/ITHIM_Sacramento-master/01_Data/06_Equity Analysis/")
+# setwd("C:/Users/Ofurhe/Desktop/ITHIM/ITHIM_Sacramento-master/01_Data/06_Equity Analysis/")
 
 # Prevent scientific notation
 options(scipen = 100)
@@ -18,8 +18,8 @@ read.csv.files <- function(countyID){
   # input the population (source: US Census/SACSIM)
   Pop_Input_byRace <- Pop.file.race[(countyID*9-8):(countyID*9-1),1:9]
   Pop_Input_byIncome <- Pop.file.income[(countyID*9-8):(countyID*9-1),1:9]
-  #Pop_Input_byRace <- read.csv(paste0("01_Population/",pop.file.names[countyID*2]))
-  #Pop_Input_byIncome <- read.csv(paste0("01_Population/",pop.file.names[countyID*2+1]))
+  #Pop_Input_byRace <- read.csv(paste0("01_Data/06_Equity Analysis/01_Population/",pop.file.names[countyID*2]))
+  #Pop_Input_byIncome <- read.csv(paste0("01_Data/06_Equity Analysis/01_Population/",pop.file.names[countyID*2+1]))
   
   # input the parameters of active transport of baseline,2020,and 2036
   # (include relative walking/cycling time and speed)
@@ -44,22 +44,22 @@ read.csv.files <- function(countyID){
   AT_Input_byRace.S3 <- AT.file.S3.byRace[(countyID*36-35):(countyID*36-1),1:10]
   AT_Input_byIncome.S3 <- AT.file.S3.byIncome[(countyID*36-35):(countyID*36-1),1:10]
   
-  #AT.file.names.baseline <- list.files(path = "02_ActiveTransport/01_ActiveTransport_Baseline_EA")
-  #AT_Input_byRace.baseline <- read.csv(paste0("02_ActiveTransport/01_ActiveTransport_Baseline_EA/",AT.file.names.baseline[countyID*2-1]))
-  #AT_Input_byIncome.baseline <- read.csv(paste0("02_ActiveTransport/01_ActiveTransport_Baseline_EA/",AT.file.names.baseline[countyID*2]))
+  #AT.file.names.baseline <- list.files(path = "01_Data/06_Equity Analysis/02_ActiveTransport/01_ActiveTransport_Baseline_EA")
+  #AT_Input_byRace.baseline <- read.csv(paste0("01_Data/06_Equity Analysis/02_ActiveTransport/01_ActiveTransport_Baseline_EA/",AT.file.names.baseline[countyID*2-1]))
+  #AT_Input_byIncome.baseline <- read.csv(paste0("01_Data/06_Equity Analysis/02_ActiveTransport/01_ActiveTransport_Baseline_EA/",AT.file.names.baseline[countyID*2]))
   
-  # AT.file.names.2020 <- list.files(path = "02_ActiveTransport/02_ActiveTransport_2020_EA")
+  # AT.file.names.2020 <- list.files(path = "01_Data/06_Equity Analysis/02_ActiveTransport/02_ActiveTransport_2020_EA")
   # # input the parameters of active transport of 2020 (include relative walking/cycling time and speed)
-  # AT_Input_byRace.2020 <- read.csv(paste0("02_ActiveTransport/02_ActiveTransport_2020_EA/",AT.file.names.2020[countyID*2-1]))
-  # AT_Input_byIncome.2020 <- read.csv(paste0("02_ActiveTransport/02_ActiveTransport_2020_EA/",AT.file.names.2020[countyID*2]))
+  # AT_Input_byRace.2020 <- read.csv(paste0("01_Data/06_Equity Analysis/02_ActiveTransport/02_ActiveTransport_2020_EA/",AT.file.names.2020[countyID*2-1]))
+  # AT_Input_byIncome.2020 <- read.csv(paste0("01_Data/06_Equity Analysis/02_ActiveTransport/02_ActiveTransport_2020_EA/",AT.file.names.2020[countyID*2]))
   # 
-  # AT.file.names.2036 <- list.files(path = "02_ActiveTransport/03_ActiveTransport_2036_EA")
+  # AT.file.names.2036 <- list.files(path = "01_Data/06_Equity Analysis/02_ActiveTransport/03_ActiveTransport_2036_EA")
   # # input the parameters of active transport of 2036 (include relative walking/cycling time and speed)
-  # AT_Input_byRace.2036 <- read.csv(paste0("02_ActiveTransport/03_ActiveTransport_2036_EA/",AT.file.names.2036[countyID*2-1]))
-  # AT_Input_byIncome.2036 <- read.csv(paste0("02_ActiveTransport/03_ActiveTransport_2036_EA/",AT.file.names.2036[countyID*2]))
+  # AT_Input_byRace.2036 <- read.csv(paste0("01_Data/06_Equity Analysis/02_ActiveTransport/03_ActiveTransport_2036_EA/",AT.file.names.2036[countyID*2-1]))
+  # AT_Input_byIncome.2036 <- read.csv(paste0("01_Data/06_Equity Analysis/02_ActiveTransport/03_ActiveTransport_2036_EA/",AT.file.names.2036[countyID*2]))
   # 
   
-  #AT_Pop_MeanTime <- read.csv("02_ActiveTransport/PopulationMeanATTime.csv")
+  #AT_Pop_MeanTime <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/PopulationMeanATTime.csv")
   #AT_Pop_List_MeanTime <- rep(list((matrix(NA,nrow=6,ncol=2))),3)
   #for(i in 1:3){
   #AT_Pop_List_MeanTime[[i]] <- as.matrix(AT_Pop_MeanTime[((7*i-6):(7*i-1)),2:3])
@@ -84,33 +84,33 @@ read.csv.files <- function(countyID){
   
   
   #input the gbd data
-  gbd.file.names <- list.files(path = "04_GBD")
-  gbd_Input_byRace <- read.csv(paste0("04_GBD/",gbd.file.names[countyID*2]))
-  gbd_Input_byIncome <- read.csv(paste0("04_GBD/",gbd.file.names[countyID*2+1]))
+  gbd.file.names <- list.files(path = "01_Data/06_Equity Analysis/04_GBD")
+  gbd_Input_byRace <- read.csv(paste0("01_Data/06_Equity Analysis/04_GBD/",gbd.file.names[countyID*2]))
+  gbd_Input_byIncome <- read.csv(paste0("01_Data/06_Equity Analysis/04_GBD/",gbd.file.names[countyID*2+1]))
   
   # combine all inputs of baseline into a list
   InputPara_byRace <- InputPara(Pop_Input_byRace,nonTravelMET_Input_byRace,gbd_Input_byRace)
   InputPara_byIncome <- InputPara(Pop_Input_byIncome,nonTravelMET_Input_byIncome,gbd_Input_byIncome)
   
   # # input the population (source: US Census/Finance Department)
-  # Pop_Input_US <- read.csv("01_Population/01_Population_US_EA.csv")
-  # Pop_Input_byRace <- read.csv("01_Population/99_Test_Population_Local_byRace_EA.csv")
-  # Pop_Input_byIncome <- read.csv("01_Population/99_Test_Population_Local_byIncome_EA.csv")
+  # Pop_Input_US <- read.csv("01_Data/06_Equity Analysis/01_Population/01_Population_US_EA.csv")
+  # Pop_Input_byRace <- read.csv("01_Data/06_Equity Analysis/01_Population/99_Test_Population_Local_byRace_EA.csv")
+  # Pop_Input_byIncome <- read.csv("01_Data/06_Equity Analysis/01_Population/99_Test_Population_Local_byIncome_EA.csv")
   
   # input the parameters of active transport (include relative walking/cycling time and speed)
-  #AT_Input_byRace.baseline <- read.csv("02_ActiveTransport/01_ActiveTransport_Baseline_EA/99_Test_ActiveTransport_byRace_Baseline_EA.csv")
-  #AT_Input_byIncome.baseline <- read.csv("02_ActiveTransport/01_ActiveTransport_Baseline_EA/99_Test_ActiveTransport_byIncome_Baseline_EA.csv")
+  #AT_Input_byRace.baseline <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/01_ActiveTransport_Baseline_EA/99_Test_ActiveTransport_byRace_Baseline_EA.csv")
+  #AT_Input_byIncome.baseline <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/01_ActiveTransport_Baseline_EA/99_Test_ActiveTransport_byIncome_Baseline_EA.csv")
   
-  #AT_Input_byRace.2020 <- read.csv("02_ActiveTransport/02_ActiveTransport_2020_EA/99_Test_ActiveTransport_byRace_2020_EA.csv")
-  #AT_Input_byIncome.2020 <- read.csv("02_ActiveTransport/02_ActiveTransport_2020_EA/99_Test_ActiveTransport_byIncome_2020_EA.csv")
+  #AT_Input_byRace.2020 <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/02_ActiveTransport_2020_EA/99_Test_ActiveTransport_byRace_2020_EA.csv")
+  #AT_Input_byIncome.2020 <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/02_ActiveTransport_2020_EA/99_Test_ActiveTransport_byIncome_2020_EA.csv")
   
-  #AT_Input_byRace.2036 <- read.csv("02_ActiveTransport/03_ActiveTransport_2036_EA/99_Test_ActiveTransport_byRace_2036_EA.csv")
-  #AT_Input_byIncome.2036 <- read.csv("02_ActiveTransport/03_ActiveTransport_2036_EA/99_Test_ActiveTransport_byIncome_2036_EA.csv")
+  #AT_Input_byRace.2036 <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/03_ActiveTransport_2036_EA/99_Test_ActiveTransport_byRace_2036_EA.csv")
+  #AT_Input_byIncome.2036 <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/03_ActiveTransport_2036_EA/99_Test_ActiveTransport_byIncome_2036_EA.csv")
   
   #input the gbd data
-  #gbd_Input_US <- read.csv("04_GBD/99_Test_GBD_US_EA.csv")
-  #gbd_Input_byRace <- read.csv("04_GBD/99_Test_GBD_Local_byRace_EA.csv")
-  #gbd_Input_byIncome <- read.csv("04_GBD/99_Test_GBD_Local_byIncome_EA.csv")
+  #gbd_Input_US <- read.csv("01_Data/06_Equity Analysis/04_GBD/99_Test_GBD_US_EA.csv")
+  #gbd_Input_byRace <- read.csv("01_Data/06_Equity Analysis/04_GBD/99_Test_GBD_Local_byRace_EA.csv")
+  #gbd_Input_byIncome <- read.csv("01_Data/06_Equity Analysis/04_GBD/99_Test_GBD_Local_byIncome_EA.csv")
   
   # combine all inputs of baseline into a list object
   #InputPara_byRace <- InputPara(Pop_Input_byRace,nonTravelMET_Input_byRace,gbd_Input_byRace)
@@ -1073,36 +1073,36 @@ incomeGroupNames <- c("Quant1","Quant2","Quant3","Quant4")
 # county names
 countyNames <- c("ELD","PLA","SAC","SUT","YOL","YUB")
 
-Pop_Input_US <- read.csv("01_Population/01_Population_US_EA.csv")
-gbd_Input_US <- read.csv("04_GBD/01_GBD_US_AllCause.csv")
+Pop_Input_US <- read.csv("01_Data/06_Equity Analysis/01_Population/01_Population_US_EA.csv")
+gbd_Input_US <- read.csv("01_Data/06_Equity Analysis/04_GBD/01_GBD_US_AllCause.csv")
 
-Pop.file.race <- read.csv("01_Population/02_Population_byRace_2012.csv")
-Pop.file.income <- read.csv("01_Population/03_Population_byIncome_2012.csv")
+Pop.file.race <- read.csv("01_Data/06_Equity Analysis/01_Population/02_Population_byRace_2012.csv")
+Pop.file.income <- read.csv("01_Data/06_Equity Analysis/01_Population/03_Population_byIncome_2012.csv")
 
 # input the .csv files of active travel data
-AT.file.baseline.byRace <- read.csv("02_ActiveTransport/01_ActiveTransport_Baseline_EA/01_ActiveTransport_byRace.2012.csv")
-AT.file.baseline.byIncome <- read.csv("02_ActiveTransport/01_ActiveTransport_Baseline_EA/02_ActiveTransport_byIncome.2012.csv")
-AT.file.2020.byRace <- read.csv("02_ActiveTransport/02_ActiveTransport_2020_EA/01_ActiveTransport_byRace.2020.csv")
-AT.file.2020.byIncome <- read.csv("02_ActiveTransport/02_ActiveTransport_2020_EA/02_ActiveTransport_byIncome.2020.csv")
-AT.file.2036.byRace <- read.csv("02_ActiveTransport/03_ActiveTransport_2036_EA/01_ActiveTransport_byRace.2036.csv")
-AT.file.2036.byIncome <- read.csv("02_ActiveTransport/03_ActiveTransport_2036_EA/02_ActiveTransport_byIncome.2036.csv")
+AT.file.baseline.byRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/01_ActiveTransport_Baseline_EA/01_ActiveTransport_byRace.2012.csv")
+AT.file.baseline.byIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/01_ActiveTransport_Baseline_EA/02_ActiveTransport_byIncome.2012.csv")
+AT.file.2020.byRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/02_ActiveTransport_2020_EA/01_ActiveTransport_byRace.2020.csv")
+AT.file.2020.byIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/02_ActiveTransport_2020_EA/02_ActiveTransport_byIncome.2020.csv")
+AT.file.2036.byRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/03_ActiveTransport_2036_EA/01_ActiveTransport_byRace.2036.csv")
+AT.file.2036.byIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/03_ActiveTransport_2036_EA/02_ActiveTransport_byIncome.2036.csv")
 
-AT.file.2027.byRace <- read.csv("02_ActiveTransport/04_ActiveTransport_2027_EA/01_ActiveTransport_byRace.2027.csv")
-AT.file.2027.byIncome <- read.csv("02_ActiveTransport/04_ActiveTransport_2027_EA/02_ActiveTransport_byIncome.2027.csv")
-AT.file.S1.byRace <- read.csv("02_ActiveTransport/05_ActiveTransport_S1_EA/01_ActiveTransport_byRace.S1.csv")
-AT.file.S1.byIncome <- read.csv("02_ActiveTransport/05_ActiveTransport_S1_EA/02_ActiveTransport_byIncome.S1.csv")
-AT.file.S2.byRace <- read.csv("02_ActiveTransport/06_ActiveTransport_S2_EA/01_ActiveTransport_byRace.S2.csv")
-AT.file.S2.byIncome <- read.csv("02_ActiveTransport/06_ActiveTransport_S2_EA/02_ActiveTransport_byIncome.S2.csv")
-AT.file.S3.byRace <- read.csv("02_ActiveTransport/07_ActiveTransport_S3_EA/01_ActiveTransport_byRace.S3.csv")
-AT.file.S3.byIncome <- read.csv("02_ActiveTransport/07_ActiveTransport_S3_EA/02_ActiveTransport_byIncome.S3.csv")
+AT.file.2027.byRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/04_ActiveTransport_2027_EA/01_ActiveTransport_byRace.2027.csv")
+AT.file.2027.byIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/04_ActiveTransport_2027_EA/02_ActiveTransport_byIncome.2027.csv")
+AT.file.S1.byRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/05_ActiveTransport_S1_EA/01_ActiveTransport_byRace.S1.csv")
+AT.file.S1.byIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/05_ActiveTransport_S1_EA/02_ActiveTransport_byIncome.S1.csv")
+AT.file.S2.byRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/06_ActiveTransport_S2_EA/01_ActiveTransport_byRace.S2.csv")
+AT.file.S2.byIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/06_ActiveTransport_S2_EA/02_ActiveTransport_byIncome.S2.csv")
+AT.file.S3.byRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/07_ActiveTransport_S3_EA/01_ActiveTransport_byRace.S3.csv")
+AT.file.S3.byIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/07_ActiveTransport_S3_EA/02_ActiveTransport_byIncome.S3.csv")
 
-AT_Pop_MeanTimebyRace <- read.csv("02_ActiveTransport/PopulationMeanATTimebyRace.csv")
-AT_Pop_MeanTimebyIncome <- read.csv("02_ActiveTransport/PopulationMeanATTimebyIncome.csv")
+AT_Pop_MeanTimebyRace <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/PopulationMeanATTimebyRace.csv")
+AT_Pop_MeanTimebyIncome <- read.csv("01_Data/06_Equity Analysis/02_ActiveTransport/PopulationMeanATTimebyIncome.csv")
 
 # input the matrix of Non-travel METs 
 # source: CHIS2005 (Per capita weekly non-travel related physical activity expressed as metabolic equivalent tasks (kcal/kg body weight/hr of activity))
-nonTravelMET_Input_byRace <- read.csv("03_nonTravelMET/01_nonTravelMET_byRace.csv")
-nonTravelMET_Input_byIncome <- read.csv("03_nonTravelMET/02_nonTravelMET_byIncome.csv")
+nonTravelMET_Input_byRace <- read.csv("01_Data/06_Equity Analysis/03_nonTravelMET/01_nonTravelMET_byRace.csv")
+nonTravelMET_Input_byIncome <- read.csv("01_Data/06_Equity Analysis/03_nonTravelMET/02_nonTravelMET_byIncome.csv")
 
 ###################### Calculation ##############################
 
