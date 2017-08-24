@@ -1122,11 +1122,17 @@ AgeStdReductionOutcome <- AgeStdHealthOutcome(c(1:6))
 
 
 ui <- fluidPage(
-  
-  selectInput("select", label = h3("Select County"), 
-              choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3), 
+  #countyID: 1-ELD,2-PLA,3-SAC,4-SUT,5-YOL,6-YUB
+  #dbID: 1-death,2-DALYs
+  #yaxisID: 1-raw,2-age.std
+  #demogrID: 1-race,2-income
+  #typeID: 1-future years, 2-scenarios
+  selectInput("selectCounty", label = h3("Select County"), 
+              choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"=4, "Yolo"=5, "Yuba"=6), 
               selected = 1),
-
+  selectInput("selectdBID", label = h3("Select outcome"), 
+              choices = list("Death" = 1, "Disability Adjusted Life Years (DALYs)" = 2), 
+              selected = 1),
   # sliderInput(inputId = "mwt",
   #             label = "Mean Walking Time (min per week)",
   #             value = 47.49, min = 20, max = 100),
@@ -1144,7 +1150,7 @@ server <- function(input, output) {
     # ggplot(data = df.death.race.2020Demo, mapping = aes(x = countyNames, y = V1,fill = DemogrGroup)) +
     #   geom_bar(stat = 'identity',width = 0.5, position = position_dodge(0.5))+xlab('County')+ylab('Death Reduction Rate (per 100,000 population)')+
     #   ggtitle("Age-std reduction in total deaths by race/ethnicity (scenario 2020)")
-    plot.shiny.app(countyID = as.integer(input$select) ,dbID = 1, yaxisID = 3, demogrID = 1,typeID = 2)
+    plot.shiny.app(countyID = as.integer(input$selectCounty) ,dbID = as.integer(input$selectdBID), yaxisID = 3, demogrID = 1,typeID = 2)
 
     
     # Debugging print statement
