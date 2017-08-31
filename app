@@ -1,5 +1,6 @@
 ###################### ITHIM application for Equity Analysis - Physical Activity Module ######################
 library(ggplot2)
+library(shiny)
 
 #set your working directory
 #setwd("~/Documents/02_Work/14_GitHub/00_ITHIM/01_Data/06_Equity Analysis/")
@@ -1555,13 +1556,17 @@ plot.shiny.app.PA(countyID = 5,dbID = 1, typeID = 2, demogrID = 1,barID = 1)
 # ggplot(data = df.reduction.DALYs.income.2036, mapping = aes(x = factor(County), y = V1,fill = DemogrGroup)) + 
 #   geom_bar(stat = 'identity', width = 0.5, position = position_dodge(0.5))+xlab('County')+ylab('Total DALYs Reduction Rate')+
 #   ggtitle("Reduction in total DALYs by household income (scenario 2036)")
-
+require(shiny)
 ui <- fluidPage(
   #countyID: 1-ELD,2-PLA,3-SAC,4-SUT,5-YOL,6-YUB
   #dbID: 1-death,2-DALYs
   #typeID: 1-raw,2-age.std
   #demogrID: 1-race,2-income
   #barID: 1-future years, 2-scenarios
+  
+  titlePanel("ITHIM APP"),
+  sidebarLayout(
+    sidebarPanel(
   selectInput("selectCounty", label = h3("Select County"), 
               choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"=4, "Yolo"=5, "Yuba"=6), 
               selected = 1),
@@ -1576,13 +1581,16 @@ ui <- fluidPage(
               selected = 1),
   selectInput("selectbarID", label = h3("Select Scenario"), 
               choices = list("Business As Usual" = 1, "Scenarios" = 2), 
-              selected = 1),
+              selected = 1)
   # sliderInput(inputId = "mwt",
   #             label = "Mean Walking Time (min per week)",
   #             value = 47.49, min = 20, max = 100),
+    ),
   
-  plotOutput("ShinyPlots")
-  
+  mainPanel(
+    plotOutput("ShinyPlots")
+  )
+  )
 )
 server <- function(input, output) {
   
