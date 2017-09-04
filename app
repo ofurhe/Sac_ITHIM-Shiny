@@ -1567,29 +1567,33 @@ ui <- fluidPage(
   titlePanel("ITHIM APP"),
   sidebarLayout(
     sidebarPanel(
-  selectInput("selectCounty", label = h3("Select County"), 
-              choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"=4, "Yolo"=5, "Yuba"=6), 
-              selected = 1),
-  selectInput("selectdBID", label = h3("Select outcome"), 
-              choices = list("Death" = 1, "Disability Adjusted Life Years (DALYs)" = 2), 
-              selected = 1),
-  selectInput("selecttypeID", label = h3("Select Units"), 
-              choices = list("Raw" = 1, "Standardized Age (per capita)" = 2), 
-              selected = 1),
-  selectInput("selectdemogrID", label = h3("Select Demographic"), 
-              choices = list("Race" = 1, "Income" = 2), 
-              selected = 1),
-  selectInput("selectbarID", label = h3("Select Scenario"), 
-              choices = list("Business As Usual" = 1, "Scenarios" = 2), 
-              selected = 1)
-  # sliderInput(inputId = "mwt",
-  #             label = "Mean Walking Time (min per week)",
-  #             value = 47.49, min = 20, max = 100),
+      
+      hr(),
+      fluidRow(column(3, verbatimTextOutput("value"))),
+    
+      radioButtons("selectCounty", label = h3("Select County"), 
+                  choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"=4, "Yolo"=5, "Yuba"=6), 
+                  selected = 1),
+      radioButtons("selectdBID", label = h3("Select outcome"), 
+                  choices = list("Death" = 1, "Disability Adjusted Life Years (DALYs)" = 2), 
+                  selected = 1),
+      radioButtons("selecttypeID", label = h3("Select Units"), 
+                  choices = list("Raw" = 1, "Standardized Age (per capita)" = 2), 
+                  selected = 1),
+      radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                  choices = list("Race" = 1, "Income" = 2), 
+                  selected = 1),
+      radioButtons("selectbarID", label = h3("Select Scenario"), 
+                  choices = list("Business As Usual" = 1, "Scenarios" = 2), 
+                  selected = 1)
+      # sliderInput(inputId = "mwt",
+      #             label = "Mean Walking Time (min per week)",
+      #             value = 47.49, min = 20, max = 100),
     ),
-  
-  mainPanel(
-    plotOutput("ShinyPlots")
-  )
+    
+    mainPanel(
+      plotOutput("ShinyPlots")
+    )
   )
 )
 server <- function(input, output) {
@@ -1598,12 +1602,12 @@ server <- function(input, output) {
   #       (input$select)
   #     })
   
-  output$ShinyPlots <- renderPlot({  
+  output$ShinyPlots <- renderPlot({
     # ggplot(data = df.death.race.2020Demo, mapping = aes(x = countyNames, y = V1,fill = DemogrGroup)) +
     #   geom_bar(stat = 'identity',width = 0.5, position = position_dodge(0.5))+xlab('County')+ylab('Death Reduction Rate (per 100,000 population)')+
     #   ggtitle("Age-std reduction in total deaths by race/ethnicity (scenario 2020)")
     plot.shiny.app.PA(countyID = as.integer(input$selectCounty), dbID = as.integer(input$selectdBID), typeID = as.integer(input$selecttypeID), demogrID = as.integer(input$selectdemogrID),barID = as.integer(input$selectbarID))
-    
+
     
     # Debugging print statement
     # cat(file=stderr(), "the selection is", input$select, "\n")
