@@ -590,7 +590,7 @@ computeHealthOutcome <- function (RR.PA,BaselineTotalExpo,ScenarioTotalExpo,gbd.
   yld.baseline.firstCol <- gbd.local$yld/sum.RatioDB.Baseline
   yld.baseline <- fun.outcome(RatioDB.Baseline,yld.baseline.firstCol)
   
-  #Compute the ∆Burden, total ∆Burden, and the proportion
+  #Compute the ???Burden, total ???Burden, and the proportion
   delta.Burden <- (matrix(NA,nrow=nAgeClass*2,ncol=4,dimnames = list((c(paste0("maleAgeClass ",1:nAgeClass),paste0("femaleAgeClass ",1:nAgeClass))),c("delta.Deaths","delta.YLL","delta.YLD","DALYS"))))
   
   delta.Burden[,1] <- rowSums(dproj.scenario)-rowSums(dproj.baseline) #deaths
@@ -661,8 +661,8 @@ computeHealthOutcome <- function (RR.PA,BaselineTotalExpo,ScenarioTotalExpo,gbd.
   # yld.baseline.firstCol <- mapply(function(x,y) x$yld/y, gbd.local,sum.RatioDB.Baseline,SIMPLIFY=FALSE)
   # yld.baseline <- mapply(fun.outcome,RatioDB.Baseline,yld.baseline.firstCol,SIMPLIFY=FALSE)
   # 
-  # #Compute the ∆Burden, total ∆Burden, and the proportion
-  # delta.Burden <- rep(list((matrix(NA,nrow=nAgeClass*2,ncol=4,dimnames = list((c(paste0("maleAgeClass ",1:nAgeClass),paste0("femaleAgeClass ",1:nAgeClass))),c("∆Deaths","∆YLL","∆YLD","DALYS"))))), length(diseaseNames))
+  # #Compute the ???Burden, total ???Burden, and the proportion
+  # delta.Burden <- rep(list((matrix(NA,nrow=nAgeClass*2,ncol=4,dimnames = list((c(paste0("maleAgeClass ",1:nAgeClass),paste0("femaleAgeClass ",1:nAgeClass))),c("???Deaths","???YLL","???YLD","DALYS"))))), length(diseaseNames))
   # names(delta.Burden) <- diseaseNames
   # 
   # delta.Burden <- mapply(function (x,a,b,c,d,e,f) {
@@ -1585,10 +1585,13 @@ ui <- fluidPage(
                   selected = 1),
       radioButtons("selectbarID", label = h3("Select Scenario"), 
                   choices = list("Business As Usual" = 1, "Scenarios" = 2), 
-                  selected = 1)
+                  selected = 1),
       # sliderInput(inputId = "mwt",
       #             label = "Mean Walking Time (min per week)",
       #             value = 47.49, min = 20, max = 100),
+      
+      actionButton(inputId = "go",
+                   label = "Update")
     ),
     
     mainPanel(
@@ -1598,15 +1601,15 @@ ui <- fluidPage(
 )
 server <- function(input, output) {
   
-  # data <- reactive({
-  #       (input$select)
-  #     })
-  
+  updateCounty <- eventReactive(
+    input$go, {input$selectCounty}
+  )
+
   output$ShinyPlots <- renderPlot({
     # ggplot(data = df.death.race.2020Demo, mapping = aes(x = countyNames, y = V1,fill = DemogrGroup)) +
     #   geom_bar(stat = 'identity',width = 0.5, position = position_dodge(0.5))+xlab('County')+ylab('Death Reduction Rate (per 100,000 population)')+
     #   ggtitle("Age-std reduction in total deaths by race/ethnicity (scenario 2020)")
-    plot.shiny.app.PA(countyID = as.integer(input$selectCounty), dbID = as.integer(input$selectdBID), typeID = as.integer(input$selecttypeID), demogrID = as.integer(input$selectdemogrID),barID = as.integer(input$selectbarID))
+    plot.shiny.app.PA(countyID = as.integer(updateCounty()), dbID = as.integer(input$selectdBID), typeID = as.integer(input$selecttypeID), demogrID = as.integer(input$selectdemogrID),barID = as.integer(input$selectbarID))
 
     
     # Debugging print statement
