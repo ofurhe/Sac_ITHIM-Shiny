@@ -2435,25 +2435,43 @@ integrated.shiny.app(countyID = 7, barID = 3,outcomeID = 1,demogrID = 1, yaxisID
 
 require(shiny)
 ui <- fluidPage(
-  #countyID: 1-ELD,2-PLA,3-SAC,4-SUT,5-YOL,6-YUB
-  #dbID: 1-death,2-DALYs
-  #typeID: 1-raw,2-age.std
-  #demogrID: 1-race,2-income
-  #barID: 1-future years, 2-scenarios
   
-  titlePanel("ITHIM APP"),
-  sidebarLayout(
-    sidebarPanel(
+  titlePanel("ITHIM APP"),  
+    navbarPage("ITHIM APP",
+      tabPanel("About",
+               fluidRow(
+                 column(6, 
+                        p("A brief paragraph explaining the ITHIM Application and how to use it.", 
+                           style = "font-family: 'Calibri';"
+                          )
+                    )
+                  )           
+                ),
+      tabPanel("Outcomes",
+               sidebarLayout(
+                 sidebarPanel(
+                   radioButtons("selectyaxisID", label = h3("Select Units"), 
+                                choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                               "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                               "Physical Activity Data" = 5), 
+                                selected = 1)
+                   
+                 ),
+                 mainPanel(
+                   plotOutput("SimplePlot")
+                 )
+               )
+        ),
       
-      hr(),
-      fluidRow(column(3, verbatimTextOutput("value"))),
+      tabPanel("Advanced Plots",
+      sidebarLayout(
+        sidebarPanel(
       # Parameter description
       # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
       # barID: 1-future years,2-scenarios,3-customized
       # outcomeID: 1-physical activity; 2-injury; 3-both
       # demogrID: 1-Race/ethnicty; 2-household income
       # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
-      
       radioButtons("selectCounty", label = h3("Select County"), 
                    choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
                    selected = 1),
@@ -2471,25 +2489,32 @@ ui <- fluidPage(
                                   "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
                                   "Physical Activity Data" = 5), 
                    selected = 1)
-
-
       # sliderInput(inputId = "mwt",
       #             label = "Mean Walking Time (min per week)",
       #             value = 47.49, min = 20, max = 100),
-    ),
-    
+      ),
     mainPanel(
-      plotOutput("ShinyPlots")
+      plotOutput("AdvancedPlot")
+          )
+        )
+      )
+    
+    
+    # mainPanel(
+    #   tabsetPanel(type = "tabs",
+    #               tabPanel("About", verbatimTextOutput("About")),
+    #               tabPanel("Simple Plot", verbatimTextOutput("summary")),
+    #               tabPanel("Advanced Plotting", plotOutput("ShinyPlots"))
+      )
     )
-  )
-)
+
 server <- function(input, output) {
   
   # data <- reactive({
   #       (input$select)
   #     })
   
-  output$ShinyPlots <- renderPlot({
+  output$AdvancedPlot <- renderPlot({
     # ggplot(data = df.death.race.2020Demo, mapping = aes(x = countyNames, y = V1,fill = DemogrGroup)) +
     #   geom_bar(stat = 'identity',width = 0.5, position = position_dodge(0.5))+xlab('County')+ylab('Death Reduction Rate (per 100,000 population)')+
     #   ggtitle("Age-std reduction in total deaths by race/ethnicity (scenario 2020)")
@@ -2504,12 +2529,28 @@ server <- function(input, output) {
     integrated.shiny.app(countyID = as.integer(input$selectCounty), barID = as.integer(input$selectbarID),
                          outcomeID = as.integer(input$selectoutcomeID),demogrID = as.integer(input$selectdemogrID), 
                          yaxisID = as.integer(input$selectyaxisID))
-    
-    
     # Debugging print statement
     # cat(file=stderr(), "the selection is", input$select, "\n")
   })
-  
+  output$SimplePlot <- renderPlot({
+    # ggplot(data = df.death.race.2020Demo, mapping = aes(x = countyNames, y = V1,fill = DemogrGroup)) +
+    #   geom_bar(stat = 'identity',width = 0.5, position = position_dodge(0.5))+xlab('County')+ylab('Death Reduction Rate (per 100,000 population)')+
+    #   ggtitle("Age-std reduction in total deaths by race/ethnicity (scenario 2020)")
+    # plot.shiny.app.PA(countyID = as.integer(input$selectCounty), dbID = as.integer(input$selectdBID), typeID = as.integer(input$selecttypeID), demogrID = as.integer(input$selectdemogrID),barID = as.integer(input$selectbarID))
+    
+    # Parameter description
+    # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
+    # barID: 1-future years,2-scenarios,3-customized
+    # outcomeID: 1-physical activity; 2-injury; 3-both
+    # demogrID: 1-Race/ethnicty; 2-household income
+    # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
+    # integrated.shiny.app(countyID = as.integer(input$selectCounty), barID = as.integer(input$selectbarID),
+    #                      outcomeID = as.integer(input$selectoutcomeID),demogrID = as.integer(input$selectdemogrID), 
+    #                      yaxisID = as.integer(input$selectyaxisID))
+    integrated.shiny.app(countyID = 7, barID = 1, outcomeID = 1,demogrID = 1, yaxisID = as.integer(input$selectyaxisID))
+    # Debugging print statement
+    # cat(file=stderr(), "the selection is", input$select, "\n")
+  })  
 }
 
 shinyApp(ui = ui, server = server)
