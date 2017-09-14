@@ -2441,9 +2441,7 @@ ui <- fluidPage(
       tabPanel("About",
                fluidRow(
                  column(6, 
-                        p("A brief paragraph explaining the ITHIM Application and how to use it.", 
-                           style = "font-family: 'Calibri';"
-                          )
+                        includeHTML("ITHIM_About.html")
                     )
                   )           
                 ),
