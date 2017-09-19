@@ -1,3 +1,5 @@
+
+
 ###################### ITHIM application for Equity Analysis - Physical Activity Module ######################
 #library definition
 library(ggplot2)
@@ -3022,14 +3024,8 @@ ui <- fluidPage(
      # Creates sidebar with Radio buttons
                         sidebarPanel(
                           # Parameter description
-                          # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
-                          # barID: 1-future years,2-scenarios,3-customized
-                          # outcomeID: 1-physical activity; 2-injury; 3-both
-                          # demogrID: 1-Race/ethnicty; 2-household income
-                          # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
-                          # radioButtons("selectCounty", label = h3("Select County"), 
-                          #              choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
-                          #              selected = 1),
+                          # barID: 1-future years,2-scenarios
+                          # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std
                           radioButtons("selectbarID", label = h3("Select Scenario"), 
                                        choices = list("Future Years" = 1, "Scenarios" = 2), 
                                        selected = 1),
@@ -3044,44 +3040,84 @@ ui <- fluidPage(
                         )
                       )
              ),
-             
-             tabPanel("Advanced Plots",
-                      sidebarLayout(
-                        sidebarPanel(
-                          # Parameter description
-                          # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
-                          # barID: 1-future years,2-scenarios,3-customized
-                          # outcomeID: 1-physical activity; 2-injury; 3-both
-                          # demogrID: 1-Race/ethnicty; 2-household income
-                          # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
-                          radioButtons("selectCounty", label = h3("Select County"), 
-                                       choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
-                                       selected = 1),
-                          radioButtons("selectbarID", label = h3("Select Scenario"), 
-                                       choices = list("Future Years" = 1, "Scenarios" = 2, "Customized" = 3), 
-                                       selected = 1),
-                          radioButtons("selectoutcomeID", label = h3("Select Outcome"), 
-                                       choices = list("Physical Activity" = 1, "Injury" = 2, "Both" = 3), 
-                                       selected = 1),
-                          radioButtons("selectdemogrID", label = h3("Select Demographic"), 
-                                       choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
-                                       selected = 1),
-                          radioButtons("selectyaxisID", label = h3("Select Units"), 
-                                       choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
-                                                      "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
-                                                      "Physical Activity Data" = 5), 
-                                       selected = 1)
-                          # sliderInput(inputId = "mwt",
-                          #             label = "Mean Walking Time (min per week)",
-                          #             value = 47.49, min = 20, max = 100),
-                        ),
-                        mainPanel(
-                          plotOutput("AdvancedPlot")
-                        )
-                      )
+
+tabPanel("Advanced Plots",
+         sidebarLayout(
+           sidebarPanel(
+             # Parameter description
+             # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
+             # barID: 1-future years,2-scenarios,3-customized
+             # outcomeID: 1-physical activity; 2-injury; 3-both
+             # demogrID: 1-Race/ethnicty; 2-household income
+             # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
+             radioButtons("selectCounty", label = h3("Select County"), 
+                          choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
+                          selected = 1),
+             radioButtons("selectbarID", label = h3("Select Scenario"), 
+                          choices = list("Future Years" = 1, "Scenarios" = 2, "Customized" = 3), 
+                          selected = 1),
+             radioButtons("selectoutcomeID", label = h3("Select Outcome"), 
+                          choices = list("Physical Activity" = 1, "Injury" = 2, "Both" = 3), 
+                          selected = 1),
+             radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                          choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                          selected = 1),
+             radioButtons("selectyaxisID", label = h3("Select Units"), 
+                          choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                         "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                         "Physical Activity Data" = 5), 
+                          selected = 1)
+             # sliderInput(inputId = "mwt",
+             #             label = "Mean Walking Time (min per week)",
+             #             value = 47.49, min = 20, max = 100),
+           ),
+           mainPanel(
+             plotOutput("AdvancedPlot")
+           )
+         )
+),
+#Upload Panel from http://shiny.rstudio.com/gallery/upload-file.html
+tabPanel("Upload", 
+         
+         sidebarLayout(
+           sidebarPanel(
+             fileInput('file1', 'Choose file to upload',
+                       accept = c(
+                         'text/csv',
+                         'text/comma-separated-values',
+                         'text/tab-separated-values',
+                         'text/plain',
+                         '.csv',
+                         '.tsv'
+                       )
+             ),
+             tags$hr(),
+             checkboxInput('header', 'Header', TRUE),
+             radioButtons('sep', 'Separator',
+                          c(Comma=',',
+                            Semicolon=';',
+                            Tab='\t'),
+                          ','),
+             radioButtons('quote', 'Quote',
+                          c(None='',
+                            'Double Quote'='"',
+                            'Single Quote'="'"),
+                          '"'),
+             tags$hr(),
+             p('If you want a sample .csv or .tsv file to upload,',
+               'you can first download the sample',
+               a(href = 'mtcars.csv', 'mtcars.csv'), 'or',
+               a(href = 'pressure.tsv', 'pressure.tsv'),
+               'files, and then try uploading them.'
              )
+           ),
+           mainPanel(
+             tableOutput('contents')
+           )
 
   )
+)
+)
 )
 
 server <- function(input, output) {
@@ -3103,9 +3139,13 @@ server <- function(input, output) {
                          yaxisID = as.integer(input$selectyaxisID))
   })
   output$SimplePlot <- renderPlot({
-
+    # Parameter description
+    # barID: 1-future years,2-scenarios
+    # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std
     aggr.outcome.shiny.app(barID = as.integer(input$selectbarID),yaxisID = as.integer(input$selectyaxisID))
-  })  
+  })
+  
+  
 }
 
 shinyApp(ui = ui, server = server)
