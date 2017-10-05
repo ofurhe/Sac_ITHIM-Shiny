@@ -3078,9 +3078,51 @@ ui <- fluidPage(
                           # radioButtons("selectoutcomeID", label = h3("Select Outcome"), 
                           #              choices = list("Physical Activity" = 1, "Injury" = 2, "Both" = 3), 
                           #              selected = 1),
-                          radioButtons("selectdemogrID", label = h3("Select Demographic"), 
-                                       choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
-                                       selected = 1),
+                          conditionalPanel(condition = "input.selectoutcomeID.length == 0 ",
+                                           radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                                                        choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                                                        selected = 1), 
+                                           radioButtons("selectyaxisID1", label = h3("Select Units"), 
+                                                        choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                                                       "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                                                       "Physical Activity Data" = 5), 
+                                                        selected = 1)
+                          ),
+                          conditionalPanel(condition = "input.selectoutcomeID == '1'",
+                                           radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                                                        choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                                                        selected = 1), 
+                                           radioButtons("selectyaxisID1", label = h3("Select Units"), 
+                                                        choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                                                       "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                                                       "Physical Activity Data" = 5), 
+                                                        selected = 1)
+                                           ),
+                          conditionalPanel(condition = "input.selectoutcomeID == '2'",
+                                           radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                                                        choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                                                        selected = 1), 
+                                           radioButtons("selectyaxisID1", label = h3("Select Units"), 
+                                                        choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                                                       "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                                                       "Physical Activity Data" = 5), 
+                                                        selected = 1)
+                          ),
+                          conditionalPanel(condition = "input.selectoutcomeID.length > 1",
+                                           radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                                                        choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                                                        selected = 1), 
+                                           radioButtons("selectyaxisID1", label = h3("Select Units"), 
+                                                        choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                                                       "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                                                       "Physical Activity Data" = 5), 
+                                                        selected = 1)
+                          ),
+                          
+                          
+                          # radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                          #              choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                          #              selected = 1),
                           radioButtons("selectyaxisID1", label = h3("Select Units"), 
                                        choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
                                                       "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
@@ -3201,5 +3243,3 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
-
-
