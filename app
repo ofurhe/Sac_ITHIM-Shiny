@@ -1,11 +1,9 @@
-
-
 ###################### ITHIM application for Equity Analysis - Physical Activity Module ######################
 #library definition
 library(ggplot2)
 
-# #set your working directory
-# setwd("~/Documents/02_Work/14_GitHub/00_ITHIM/01_Data/06_Equity Analysis/")
+#set your working directory
+# setwd("C://Users/ofurhe/Desktop/ITHIM/ITHIMAPP/ITHIM_Sacramento-master_1042017/01_Data/06_Equity Analysis")
 
 # Prevent scientific notation
 options(scipen = 100)
@@ -1652,8 +1650,8 @@ plot.shiny.app.PA(countyID = 1,dbID = 1, typeID = 2, demogrID = 1,barID = 1)
 ############################ Two Race Categories Version ######################
 library(ggplot2)
 
-# #set your working directory
-# setwd("~/Documents/02_Work/14_GitHub/00_ITHIM/01_Data/06_Equity Analysis")
+#set your working directory
+# setwd("C://Users/ofurhe/Desktop/ITHIM/ITHIMAPP/ITHIM_Sacramento-master_1042017/01_Data/06_Equity Analysis")
 
 # Prevent scientific notation
 options(scipen = 100)
@@ -1673,9 +1671,16 @@ dbNames <- c('Deaths','DALYs')
 countyNames <- c("El Dorado","Placer","Sacramento","Sutter","Yolo","Yuba")
 
 # input the vehicle distance data
-PersonVehicleDist.2012 <- read.csv('06_PersonVehicleDistance/00_PersonVehicleDistance_Baseline.csv')
-PersonVehicleDist.2020 <- read.csv('06_PersonVehicleDistance/01_PersonVehicleDistance_2020.csv')
-PersonVehicleDist.2036 <- read.csv('06_PersonVehicleDistance/02_PersonVehicleDistance_2036.csv')
+#PersonVehicleDist.2012 <- read.csv('06_PersonVehicleDistance/00_PersonVehicleDistance_Baseline.csv')
+#PersonVehicleDist.2020 <- read.csv('06_PersonVehicleDistance/01_PersonVehicleDistance_2020.csv')
+#PersonVehicleDist.2036 <- read.csv('06_PersonVehicleDistance/02_PersonVehicleDistance_2036.csv')
+#PersonVehicleDist.2027 <- read.csv('06_PersonVehicleDistance/03_PersonVehicleDistance_2027.csv')
+#PersonVehicleDist.S1 <- read.csv('06_PersonVehicleDistance/04_PersonVehicleDistance_S1.csv')
+#PersonVehicleDist.S2 <- read.csv('06_PersonVehicleDistance/05_PersonVehicleDistance_S2.csv')
+#PersonVehicleDist.S3 <- read.csv('06_PersonVehicleDistance/06_PersonVehicleDistance_S3.csv')
+#PersonVehicleDist.C1 <- read.csv('06_PersonVehicleDistance/07_PersonVehicleDistance_Custom1.csv')
+#PersonVehicleDist.C2 <- read.csv('06_PersonVehicleDistance/08_PersonVehicleDistance_Custom2.csv')
+#PersonVehicleDist.C3 <- read.csv('06_PersonVehicleDistance/09_PersonVehicleDistance_Custom3.csv')
 
 # input the population data for each race group
 Pop.file.race <- read.csv("01_Population/02_Population_byRace_2012.csv")
@@ -2348,7 +2353,7 @@ plot.shiny.app.injury <- function(countyID, barID, yaxisID){
 #   geom_bar(stat = 'identity',width = 0.5, position = position_dodge(0.5))+xlab('Demographic Group')+ylab('Fatalities')+
 #   ggtitle("Reduction in total injuries")
 
-plot.shiny.app.injury(countyID = 3, barID = 1,yaxisID = 1)
+plot.shiny.app.injury(countyID = 7, barID = 2,yaxisID = 1)
 
 #write.csv(output.result(countyID=1),file = '00_HealthOutcome/00_Injury/11 year SWITRS updated/ELD.injuryresult_twoRaces.csv')
 #write.csv(output.result(countyID=2),file = '00_HealthOutcome/00_Injury/11 year SWITRS updated/PLA.injuryresult_twoRaces.csv')
@@ -2357,7 +2362,7 @@ plot.shiny.app.injury(countyID = 3, barID = 1,yaxisID = 1)
 #write.csv(output.result(countyID=5),file = '00_HealthOutcome/00_Injury/11 year SWITRS updated/YOL.injuryresult_twoRaces.csv')
 #write.csv(output.result(countyID=6),file = '00_HealthOutcome/00_Injury/11 year SWITRS updated/YUB.injuryresult_twoRaces.csv')
 
-###################### ITHIM application for Equity Analysis - Web Interface - Shiny App Functions ######################
+###################### ITHIM application for Equity Analysis - Web Interface - Shiny App ######################
 
 # # read R scripts for physical activity module and traffic injury module
 # setwd("~/Documents/02_Work/14_GitHub/00_ITHIM/00_R scripts")
@@ -2998,19 +3003,30 @@ aggr.outcome.shiny.app <- function(barID,yaxisID){
 # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
 integrated.shiny.app(countyID = 2, barID = 1,outcomeID = 2,demogrID = 1, yaxisID =1)
 
+
+
 # Parameter description
 # barID: 1-future years,2-scenarios
 # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std
 aggr.outcome.shiny.app(barID = 1,yaxisID=1)
 
+
+
+
+
+
 ###################### ITHIM application for Equity Analysis - Web Interface - Shiny App - Server/UI ######################
 
+
+#setwd("~/Documents/02_Work/14_GitHub/00_ITHIM/01_Data/06_Equity Analysis")
+
 require(shiny)
+
 ui <- fluidPage(
   titlePanel("ITHIM APP"),  
   navbarPage("ITHIM APP",
              
-# Pulls About page from Markdown File
+             # Pulls About page from Markdown File
              tabPanel("About",
                       fluidRow(
                         column(6, 
@@ -3018,10 +3034,10 @@ ui <- fluidPage(
                         )
                       )           
              ),
-# Creates simple aggregated plot
+             # Creates simple aggregated plot
              tabPanel("Simple Aggregated Plots",
                       sidebarLayout(
-     # Creates sidebar with Radio buttons
+                        # Creates sidebar with Radio buttons
                         sidebarPanel(
                           # Parameter description
                           # barID: 1-future years,2-scenarios
@@ -3032,7 +3048,7 @@ ui <- fluidPage(
                           radioButtons("selectyaxisID", label = h3("Select Units"), 
                                        choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
                                                       "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4
-                                                      ), 
+                                       ), 
                                        selected = 1)
                         ),
                         mainPanel(
@@ -3040,84 +3056,93 @@ ui <- fluidPage(
                         )
                       )
              ),
-
-tabPanel("Advanced Plots",
-         sidebarLayout(
-           sidebarPanel(
-             # Parameter description
-             # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
-             # barID: 1-future years,2-scenarios,3-customized
-             # outcomeID: 1-physical activity; 2-injury; 3-both
-             # demogrID: 1-Race/ethnicty; 2-household income
-             # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
-             radioButtons("selectCounty", label = h3("Select County"), 
-                          choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
-                          selected = 1),
-             radioButtons("selectbarID", label = h3("Select Scenario"), 
-                          choices = list("Future Years" = 1, "Scenarios" = 2, "Customized" = 3), 
-                          selected = 1),
-             radioButtons("selectoutcomeID", label = h3("Select Outcome"), 
-                          choices = list("Physical Activity" = 1, "Injury" = 2, "Both" = 3), 
-                          selected = 1),
-             radioButtons("selectdemogrID", label = h3("Select Demographic"), 
-                          choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
-                          selected = 1),
-             radioButtons("selectyaxisID", label = h3("Select Units"), 
-                          choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
-                                         "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
-                                         "Physical Activity Data" = 5), 
-                          selected = 1)
-             # sliderInput(inputId = "mwt",
-             #             label = "Mean Walking Time (min per week)",
-             #             value = 47.49, min = 20, max = 100),
-           ),
-           mainPanel(
-             plotOutput("AdvancedPlot")
-           )
-         )
-),
-#Upload Panel from http://shiny.rstudio.com/gallery/upload-file.html
-# 01_Data/EQ/ActiveTransport/c1-c2-c3
-# 01_Data/EQ/PVD/c1-2-3
-
-tabPanel("Custom Scenarios", 
-         
-         sidebarLayout(
-           sidebarPanel(
-             fileInput('file1', 'Choose file to upload',
-                       accept = c(
-                         '.zip'
-                       )
+             
+             tabPanel("Advanced Plots",
+                      sidebarLayout(
+                        sidebarPanel(
+                          # Parameter description
+                          # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
+                          # barID: 1-future years,2-scenarios,3-customized
+                          # outcomeID: 1-physical activity; 2-injury; 3-both
+                          # demogrID: 1-Race/ethnicty; 2-household income
+                          # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
+                          radioButtons("selectCounty", label = h3("Select County"), 
+                                       choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
+                                       selected = 1),
+                          radioButtons("selectbarID1", label = h3("Select Scenario"), 
+                                       choices = list("Future Years" = 1, "Scenarios" = 2), 
+                                       selected = 1),
+                          checkboxGroupInput("selectoutcomeID",label = h3("Select Outcome"), choices = list("Physical Activity" = 1, "Injury" = 2), 
+                                                           selected = 1),
+                          
+                          # radioButtons("selectoutcomeID", label = h3("Select Outcome"), 
+                          #              choices = list("Physical Activity" = 1, "Injury" = 2, "Both" = 3), 
+                          #              selected = 1),
+                          radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                                       choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                                       selected = 1),
+                          radioButtons("selectyaxisID1", label = h3("Select Units"), 
+                                       choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                                      "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                                      "Physical Activity Data" = 5), 
+                                       selected = 1)
+                          # sliderInput(inputId = "mwt",
+                          #             label = "Mean Walking Time (min per week)",
+                          #             value = 47.49, min = 20, max = 100),
+                        ),
+                        mainPanel(
+                          plotOutput("AdvancedPlot")
+                        )
+                      )
              ),
-             tags$hr(),
-             p('Please use the following as a template for the data structure of your custom scenarios',
-               a(href = "CustomScenarioTemplate.zip", "CustomScenarioTemplate.zip")
-             ),
-             radioButtons("selectCounty", label = h3("Select County"), 
-                          choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
-                          selected = 1),
-             radioButtons("selectbarID", label = h3("Select Scenario"), 
-                          choices = list("Future Years" = 1, "Scenarios" = 2, "Customized" = 3), 
-                          selected = 1),
-             radioButtons("selectoutcomeID", label = h3("Select Outcome"), 
-                          choices = list("Physical Activity" = 1, "Injury" = 2, "Both" = 3), 
-                          selected = 1),
-             radioButtons("selectdemogrID", label = h3("Select Demographic"), 
-                          choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
-                          selected = 1),
-             radioButtons("selectyaxisID", label = h3("Select Units"), 
-                          choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
-                                         "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
-                                         "Physical Activity Data" = 5), 
-                          selected = 1)
-           ),
-           mainPanel(
-             plotOutput("CustomizablePlot")
-           )
-
+             #Upload Panel from http://shiny.rstudio.com/gallery/upload-file.html
+             # 01_Data/EQ/ActiveTransport/c1-c2-c3
+             # 01_Data/EQ/PVD/c1-2-3
+             
+             tabPanel("Custom Scenarios", 
+                      
+                      sidebarLayout(
+                        sidebarPanel(
+                          fileInput('file1', 'Choose file to upload',
+                                    multiple = TRUE,
+                                    accept = c(
+                                      'text/csv',
+                                      'text/comma-separated-values',
+                                      'text/tab-separated-values',
+                                      'text/plain',
+                                      '.csv',
+                                      '.tsv'
+                                    )
+                          ),
+                          tags$hr(),
+                          p('Please use the following as a template for the data structure of your custom scenarios',
+                            a(href = "CustomScenarioTemplate.zip", "CustomScenarioTemplate.zip")
+                          ),
+                          radioButtons("selectCounty", label = h3("Select County"), 
+                                       choices = list("El Dorado" = 1, "Placer" = 2, "Sacramento" = 3, "Sutter"= 4, "Yolo"= 5, "Yuba"= 6, "All"= 7), 
+                                       selected = 1),
+                          radioButtons("selectbarID", label = h3("Select Scenario"), 
+                                       choices = list("Future Years" = 1, "Scenarios" = 2, "Customized" = 3), 
+                                       selected = 1),
+                          radioButtons("selectoutcomeID", label = h3("Select Outcome"), 
+                                       choices = list("Physical Activity" = 1, "Injury" = 2, "Both" = 3), 
+                                       selected = 1),
+                          radioButtons("selectdemogrID", label = h3("Select Demographic"), 
+                                       choices = list("Race/Ethnicity" = 1, "Household Income" = 2), 
+                                       selected = 1),
+                          radioButtons("selectyaxisID", label = h3("Select Units"), 
+                                       choices = list("Deaths - [Total]" = 1, "Death - [Age Standardized]" = 2, 
+                                                      "Disability Adjusted Life Years (DALYs) - [Total]" = 3, "DALYs - [Age Standardized]" = 4, 
+                                                      "Physical Activity Data" = 5), 
+                                       selected = 1)
+                        ),
+                        mainPanel(
+                          plotOutput("CustomizablePlot")
+                        )
+                        
+                      )
+             )
   )
-)
-)
 )
 
 server <- function(input, output) {
@@ -3128,9 +3153,23 @@ server <- function(input, output) {
   
   output$CustomizablePlot <- renderPlot({
     
+     inFile <- input$file1
+    
+     if (is.null(inFile))
+       return(NULL)
+  
+    
+    # Re - input the vehicle distance data with Custom Scenarios
+    PersonVehicleDist.C1 <- read.csv(inFile$datapath)
+    AT.file.C1.byRace <- read.csv(inFile$datapath)
+    AT.file.C1.byIncome <- read.csv(inFile$datapath)
+    AT_Pop_MeanTimebyRace.C1 <- read.csv(inFile$datapath)
+    AT_Pop_MeanTimebyIncome.C1 <- read.csv(inFile$datapath)
+
+
     # Parameter description
     # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
-    # barID: 1-future years,2-scenarios,3-customized
+    # barID: 1-select outcome,2-scenarios,3-customized
     # outcomeID: 1-physical activity; 2-injury; 3-both
     # demogrID: 1-Race/ethnicty; 2-household income
     # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
@@ -3140,16 +3179,17 @@ server <- function(input, output) {
   })
   
   output$AdvancedPlot <- renderPlot({
-
+    
     # Parameter description
     # countyID: 1-ELD; 2-PLA; 3-SAC; 4-SUT; 5-YOL; 6-YUB; 7-All
     # barID: 1-future years,2-scenarios,3-customized
     # outcomeID: 1-physical activity; 2-injury; 3-both
     # demogrID: 1-Race/ethnicty; 2-household income
     # yaxisID: 1-Death total; 2-Death age.std; 3-DALYs total; 4-DALYs age.std; 5-physical activity data
-    integrated.shiny.app(countyID = as.integer(input$selectCounty), barID = as.integer(input$selectbarID),
+    integrated.shiny.app(countyID = as.integer(input$selectCounty), barID = as.integer(input$selectbarID1),
                          outcomeID = as.integer(input$selectoutcomeID),demogrID = as.integer(input$selectdemogrID), 
-                         yaxisID = as.integer(input$selectyaxisID))
+                         yaxisID = as.integer(input$selectyaxisID1)
+                         )
   })
   output$SimplePlot <- renderPlot({
     # Parameter description
@@ -3158,7 +3198,8 @@ server <- function(input, output) {
     aggr.outcome.shiny.app(barID = as.integer(input$selectbarID),yaxisID = as.integer(input$selectyaxisID))
   })
   
-  
 }
 
 shinyApp(ui = ui, server = server)
+
+
