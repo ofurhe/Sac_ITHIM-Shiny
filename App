@@ -41,11 +41,15 @@ ui <- fluidPage(
              # Creates About Page
              tabPanel("About and FAQ",
                       fluidRow(
-                        column(6,
+                        column(10,
                                includeHTML("ITHIM_About.html")# Pulls About page from Markdown File
                         )
                       )
              ),
+             # using iframe along with tags() within tab to display pdf with scroll, height and width could be adjusted
+             tabPanel("Tutorial", 
+                      tags$iframe(style="height:800px; width:100%; scrolling=yes", 
+                                  src="ITHIMSacramento1HrWebinar.pdf")),
              # Creates Simple Aggregated Plot Page
              tabPanel("Simple Aggregated Plots",
                       sidebarLayout(
@@ -172,12 +176,13 @@ ui <- fluidPage(
 
                       sidebarLayout(
                         sidebarPanel(
-                          p('Upload a Person Vehicle Distance File like template below',
-                              a("PersonVehicleDistance_Custom1", href = "07_PersonVehicleDistance_Custom1.csv")
-                            ),
-                          fileInput('file1', 'Choose CSV File to upload',
-                                    accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv'))
-                        ),
+                          p("Upload a Person Vehicle Distance File like template below:"),
+                          a("PersonVehicleDistance_Custom1", href = "07_PersonVehicleDistance_Custom1.csv"),
+                          p(fileInput('PersonVehicleDistance_Custom1', 'Choose Personal Vehicle Distance csv file to upload',
+                                     accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv'))
+                          )
+                                        ),
+                        
                         mainPanel(
                           tableOutput('readCSV')
                         )
@@ -329,12 +334,12 @@ server <- function(input, output) {
   })
   output$readCSV <- renderTable({
     
-    # input$file1 will be NULL initially. After the user selects and uploads a 
+    # file will be NULL initially. After the user selects and uploads a 
     # file, it will be a data frame with 'name', 'size', 'type', and 'datapath' 
     # columns. The 'datapath' column will contain the local filenames where the 
     # data can be found.
     
-    inFile <- input$file1
+    inFile <- input$PersonVehicleDistance_Custom1
     
     if (is.null(inFile))
       return(NULL)
