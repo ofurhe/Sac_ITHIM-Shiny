@@ -1,0 +1,84 @@
+---
+title: "ITHIM_PhaseII_Model1"
+author: "Ofurhe Igbinedion"
+date: "May 30, 2018"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+---
+title: "iFit_Models"
+author: "Ofurhe Igbinedion"
+date: "September 29, 2016"
+output: html_document
+---
+
+```{r}
+setwd("C:/Users/ofurhe/Desktop/ITHIM")
+
+#read regression Data
+RegressionData1 <- read.csv("regression_data_model_1.csv", header = TRUE)
+head(RegressionData1)
+
+# create new data frame with all missing values removed
+RegressionData1.c <- na.omit(RegressionData1)
+
+######## Regression in a single equation
+
+#Caclulate Rates
+RegressionData1.c$Death.Rate <- (RegressionData1.c$Death.Count / RegressionData1.c$total.population)
+RegressionData1.c$White.Rate <- (RegressionData1.c$non.Hisp.White / RegressionData1.c$total.population)
+RegressionData1.c$Black.Rate <- (RegressionData1.c$non.Hisp.Black / RegressionData1.c$total.population)
+RegressionData1.c$Hisp.Rate <- (RegressionData1.c$Hisp.or.Latino / RegressionData1.c$total.population)
+RegressionData1.c$Poverty.Rate <- (RegressionData1.c$Poverty / RegressionData1.c$total.population)
+RegressionData1.c$Education.Rate <- (RegressionData1.c$Edu1 / RegressionData1.c$total.population)
+
+RegressionData1.c$male12.Rate <- ((RegressionData1.c$male1 + RegressionData1.c$male2)/ RegressionData1.c$total.population)
+RegressionData1.c$male34.Rate <- ((RegressionData1.c$male3 + RegressionData1.c$male4)/ RegressionData1.c$total.population)
+RegressionData1.c$male56.Rate <- ((RegressionData1.c$male5 + RegressionData1.c$male6)/ RegressionData1.c$total.population)
+RegressionData1.c$male78.Rate <- ((RegressionData1.c$male7 + RegressionData1.c$male8)/ RegressionData1.c$total.population)
+
+RegressionData1.c$female12.Rate <- ((RegressionData1.c$female1 + RegressionData1.c$female2)/ RegressionData1.c$total.population)
+RegressionData1.c$female34.Rate <- ((RegressionData1.c$female3 + RegressionData1.c$female4)/ RegressionData1.c$total.population)
+RegressionData1.c$female56.Rate <- ((RegressionData1.c$female5 + RegressionData1.c$female6)/ RegressionData1.c$total.population)
+RegressionData1.c$female78.Rate <- ((RegressionData1.c$female7 + RegressionData1.c$female8)/ RegressionData1.c$total.population)
+
+# select variables
+data.v <- cbind(RegressionData1.c$zcta, RegressionData1.c$Death.Rate, RegressionData1.c$White.Rate, RegressionData1.c$Black.Rate, RegressionData1.c$Hisp.Rate, RegressionData1.c$Poverty.Rate, RegressionData1.c$Education.Rate, RegressionData1.c$male12.Rate, RegressionData1.c$male34.Rate, RegressionData1.c$male56.Rate, RegressionData1.c$male78.Rate, RegressionData1.c$female12.Rate, RegressionData1.c$female34.Rate, RegressionData1.c$female56.Rate, RegressionData1.c$female78.Rate )
+
+colnames(data.v) <- c("Zip","Death.Rate","White.Rate","Black.Rate","Hisp.Rate","Poverty.Rate","Education.Rate", "male12.Rate", "male34.Rate", "male56.Rate","male78.Rate", "female12.Rate", "female34.Rate", "female56.Rate","female78.Rate")
+head(data.v)
+data.v <- data.v[is.finite(rowSums(data.v)),]
+data.v <- as.data.frame(data.v)
+
+
+# Define full and null models and do step procedure
+model.null <- glm(Death.Rate~1,
+                  data = data.v,
+                  family = binomial(link = "logit")
+                  )
+summary(model.null)
+
+model.full <- glm(Death.Rate ~ Black.Rate + Hisp.Rate + Poverty.Rate + Education.Rate + male12.Rate + male34.Rate 
+                  + male56.Rate + male78.Rate + female12.Rate + female34.Rate + female56.Rate + female78.Rate, 
+              data = data.v,
+              family = binomial ("logit")
+              )
+summary(model.full)
+
+step(model.null,
+     scope = list(upper=model.full),
+     direction="both",
+     test="Chisq",
+     data=data.v)
+
+model.final <- glm(Death.Rate ~ female78.Rate,
+                   data = data.v,
+                   family = binomial(link = "logit")
+                   )
+summary(model.final)
+
+```
+
+
